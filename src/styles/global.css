@@ -1,109 +1,39 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap");
 :root {
-  color-scheme: dark;
-  --color-bg: #10110f;
-  --color-surface: #191a17;
-  --color-surface-raised: #20211d;
-  --color-text: #f2f0e9;
-  --color-muted: #a5a69c;
-  --color-accent: #d7ff64;
-  --color-line: rgb(242 240 233 / 13%);
-  --font-sans: "Manrope", sans-serif;
-  --font-mono: "DM Mono", monospace;
-  --content-width: 1160px;
+  color-scheme: light;
+  --color-bg:#fafafa; --color-canvas:#ffffff; --color-surface:#ffffff; --color-surface-soft:#fafafa; --color-surface-raised:#f5f5f5;
+  --color-text:#171717; --color-ink:#171717; --color-on-primary:#ffffff; --color-muted:#4d4d4d; --color-subtle:#888888;
+  --color-accent:#0070f3; --color-link:#0070f3; --color-link-deep:#0761d1; --color-line:#ebebeb; --color-line-strong:#a1a1a1;
+  --font-sans:"Geist","Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --content-width:1200px; --radius-xs:4px; --radius-sm:6px; --radius-md:8px; --radius-lg:12px; --radius-pill:100px;
+  --shadow-card:0 1px 1px rgb(0 0 0 / 2%),0 2px 2px rgb(0 0 0 / 4%),inset 0 0 0 1px rgb(0 0 0 / 5%);
+  --shadow-card-hover:0 2px 2px rgb(0 0 0 / 4%),0 8px 8px -8px rgb(0 0 0 / 6%),inset 0 0 0 1px rgb(0 0 0 / 7%);
 }
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  background: var(--color-bg);
-}
-
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-body::selection {
-  color: var(--color-bg);
-  background: var(--color-accent);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea {
-  font: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-img,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-::selection {
-  color: var(--color-bg);
-  background: var(--color-accent);
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
-}
-
-.container {
-  width: min(var(--content-width), calc(100% - 48px));
-  margin-inline: auto;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--color-muted);
-  font: 500 11px/1.4 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  content: "";
-}
-
-@media (max-width: 640px) {
-  .container {
-    width: min(100% - 32px, var(--content-width));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px;background:var(--color-bg)}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{color:#f2f2f2;background:#171717}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button{color:inherit}
+img,svg,video{display:block;max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--color-link);outline-offset:4px}
+.container{width:min(var(--content-width),calc(100% - 48px));margin-inline:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--color-muted);font:400 12px/16px var(--font-mono)}
+.eyebrow::before{width:6px;height:6px;flex:0 0 auto;border-radius:50%;background:var(--color-link);content:""}
+.section-kicker{margin:0 0 14px;color:var(--color-muted);font:400 12px/16px var(--font-mono)}
+.section-title{margin:0;font-size:clamp(32px,4.6vw,56px);line-height:1.06;font-weight:600;letter-spacing:-.065em}
+.section-description{max-width:550px;margin:18px 0 0;color:var(--color-muted);font-size:16px;line-height:1.75}
+.text-link{display:inline-flex;align-items:center;gap:9px;color:var(--color-link);font-size:14px;font-weight:500;transition:color 160ms ease}
+.text-link:hover{color:var(--color-link-deep)}
+.button{min-height:48px;display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:0 22px;border:1px solid transparent;border-radius:var(--radius-pill);font-size:14px;font-weight:500;line-height:20px;white-space:nowrap;cursor:pointer;transition:background-color 180ms ease,border-color 180ms ease,color 180ms ease,transform 180ms ease}
+.button:hover{transform:translateY(-1px)}
+.button-primary{background:var(--color-ink);color:var(--color-on-primary)}
+.button-primary:hover{background:#333333}
+.button-secondary{background:var(--color-canvas);color:var(--color-ink);border-color:var(--color-line)}
+.button-secondary:hover{background:var(--color-surface-raised);border-color:#d7d7d7}
+@media(max-width:640px){.container{width:min(100% - 32px,var(--content-width))}.section-title{font-size:clamp(32px,9vw,44px)}.section-description{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

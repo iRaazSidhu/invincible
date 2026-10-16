@@ -1,106 +1,49 @@
 ---
 interface Props {
-  number: string;
-  title: string;
-  category: string;
-  year: string;
-  tone?: "lime" | "violet" | "orange";
+  number: string; title: string; category: string; summary: string; year: string;
+  filter: "web" | "product"; visual: "kaizenx" | "cinebit" | "zugic"; tags: string[];
 }
-
-const { number, title, category, year, tone = "lime" } = Astro.props;
+const { number, title, category, summary, year, filter, visual, tags } = Astro.props;
 ---
-
-<article class={`project-card project-card--${tone}`}>
-  <div class="project-art" aria-hidden="true">
-    <div class="art-orbit art-orbit--one"></div>
-    <div class="art-orbit art-orbit--two"></div>
-    <div class="art-core"><span>{number}</span></div>
-    <span class="art-label">SELECTED WORK / {year}</span>
+<article class="project-card" data-project-card data-category={filter}>
+  <div class={"project-visual project-visual--" + visual} aria-hidden="true">
+    <div class="window-bar"><div class="window-controls"><i></i><i></i><i></i></div><span>INVINCIBLE / WORK SAMPLE {number}</span><span class="window-menu">•••</span></div>
+    {visual === "kaizenx" && <div class="visual-content visual-content--ecosystem"><span class="visual-overline">CONNECTED DIGITAL ECOSYSTEM</span><h3>One ecosystem.<br />Many possibilities.</h3><div class="ecosystem-grid"><span>Exchange <b>↗</b></span><span>Wallet <b>↗</b></span><span>Discover <b>↗</b></span></div><div class="visual-foot"><span>01 / DIGITAL EXPERIENCE</span><span>KAIZENX</span></div></div>}
+    {visual === "cinebit" && <div class="visual-content visual-content--product"><span class="visual-overline">DISCOVERY / INTERFACE</span><h3>Find your<br />next favourite.</h3><div class="content-preview-grid"><span><i></i><b>Featured</b></span><span><i></i><b>Explore</b></span><span><i></i><b>My list</b></span></div><div class="visual-foot"><span>02 / DIGITAL PRODUCT</span><span>CINEBIT</span></div></div>}
+    {visual === "zugic" && <div class="visual-content visual-content--corporate"><span class="visual-overline">CORPORATE / DIGITAL EXPERIENCE</span><h3>Built for<br />what comes next.</h3><div class="corporate-lines"><i></i><i></i><i></i></div><div class="visual-foot"><span>03 / CORPORATE EXPERIENCE</span><span>ZUGIC</span></div></div>}
   </div>
-  <div class="project-info">
-    <div>
-      <p>{category}</p>
-      <h3>{title}</h3>
-    </div>
-    <span class="project-arrow" aria-hidden="true">↗</span>
+  <div class="project-content">
+    <div class="project-meta"><span>{category}</span><span>{year}</span></div>
+    <h3>{title}</h3><p class="project-summary">{summary}</p>
+    <div class="project-tags">{tags.map((tag) => <span>{tag}</span>)}</div>
   </div>
 </article>
-
 <style>
-  .project-card { min-width: 0; }
-  .project-art {
-    min-height: 300px;
-    aspect-ratio: 1.16 / 1;
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-    background: #1c2118;
-    border: 1px solid var(--color-line);
-  }
-  .project-card--violet .project-art { background: #201d29; }
-  .project-card--orange .project-art { background: #2a211b; }
-  .art-orbit {
-    position: absolute;
-    width: 68%;
-    aspect-ratio: 1;
-    border: 1px solid rgb(242 240 233 / 25%);
-    border-radius: 50%;
-    transform: rotate(-28deg) scaleY(.48);
-  }
-  .art-orbit--two { width: 83%; transform: rotate(55deg) scaleY(.48); }
-  .project-card--violet .art-orbit { border-color: rgb(201 179 255 / 38%); }
-  .project-card--orange .art-orbit { border-color: rgb(255 181 117 / 38%); }
-  .art-core {
-    display: grid;
-    width: 31%;
-    aspect-ratio: 1;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--color-accent);
-    color: #11120e;
-    box-shadow: 0 0 70px rgb(215 255 100 / 14%);
-    font: 500 clamp(24px, 3vw, 44px)/1 var(--font-mono);
-    transition: transform 350ms cubic-bezier(.2,.7,.2,1);
-  }
-  .project-card--violet .art-core { background: #c9b3ff; }
-  .project-card--orange .art-core { background: #ffb575; }
-  .project-card:hover .art-core { transform: scale(1.08) rotate(-9deg); }
-  .art-label {
-    position: absolute;
-    right: 18px;
-    bottom: 16px;
-    color: rgb(242 240 233 / 60%);
-    font: 10px var(--font-mono);
-    letter-spacing: .08em;
-  }
-  .project-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding-top: 20px;
-  }
-  .project-info p {
-    margin: 0 0 7px;
-    color: var(--color-muted);
-    font: 10px var(--font-mono);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-  .project-info h3 { margin: 0; font-size: clamp(17px, 2vw, 21px); letter-spacing: -.04em; }
-  .project-arrow {
-    display: grid;
-    width: 38px;
-    height: 38px;
-    flex: 0 0 auto;
-    place-items: center;
-    border: 1px solid var(--color-line);
-    border-radius: 50%;
-    font-size: 17px;
-    transition: background 180ms ease, color 180ms ease;
-  }
-  .project-card:hover .project-arrow { background: var(--color-accent); color: var(--color-bg); }
-  @media (max-width: 640px) { .project-art { min-height: 245px; } }
+.project-card{min-width:0;overflow:hidden;border:1px solid var(--color-line);border-radius:var(--radius-md);background:var(--color-canvas);box-shadow:var(--shadow-card);transition:box-shadow 180ms ease,transform 180ms ease,border-color 180ms ease}
+.project-card:hover{transform:translateY(-3px);border-color:#d8d8d8;box-shadow:var(--shadow-card-hover)}
+.project-visual{min-height:288px;position:relative;overflow:hidden;background:var(--color-surface-raised);border-bottom:1px solid var(--color-line)}
+.window-bar{height:34px;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid var(--color-line);background:#fff;color:var(--color-subtle);font:400 9px/1 var(--font-mono)}
+.window-controls{display:flex;gap:4px}.window-controls i{width:6px;height:6px;border:1px solid #c8c8c8;border-radius:50%}
+.window-bar>span:nth-child(2){flex:1;text-align:center}.window-menu{letter-spacing:2px}
+.visual-content{min-height:253px;display:flex;flex-direction:column;align-items:start;padding:22px clamp(18px,2.4vw,28px) 14px}
+.visual-overline{color:var(--color-muted);font:400 9px/1.4 var(--font-mono);letter-spacing:.02em}
+.visual-content h3{margin:15px 0 20px;color:var(--color-ink);font-size:clamp(22px,2.5vw,31px);line-height:1.02;letter-spacing:-.065em;font-weight:500}
+.ecosystem-grid{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:auto}
+.ecosystem-grid span{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:10px 8px;border:1px solid #e0e0e0;border-radius:var(--radius-xs);background:#fff;color:var(--color-muted);font-size:9px}
+.ecosystem-grid b{color:var(--color-link);font-size:10px;font-weight:500}
+.visual-foot{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;color:var(--color-subtle);font:400 8px/1.2 var(--font-mono)}
+.content-preview-grid{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:auto}
+.content-preview-grid span{overflow:hidden;border:1px solid #e0e0e0;border-radius:var(--radius-xs);background:#fff}
+.content-preview-grid i{display:block;height:45px;border-bottom:1px solid var(--color-line);background:linear-gradient(145deg,#e8e8e8,#f9f9f9)}
+.content-preview-grid b{display:block;padding:7px 6px;color:var(--color-muted);font-size:8px;font-weight:500}
+.corporate-lines{width:100%;display:grid;gap:7px;margin-top:auto}
+.corporate-lines i{display:block;height:5px;border-radius:100px;background:#e1e1e1}
+.corporate-lines i:nth-child(1){width:94%}.corporate-lines i:nth-child(2){width:71%}.corporate-lines i:nth-child(3){width:83%}
+.project-content{padding:20px}.project-meta{display:flex;justify-content:space-between;gap:10px;color:var(--color-muted);font-size:11px}
+.project-meta span:last-child{color:var(--color-subtle);font-family:var(--font-mono)}
+.project-content>h3{margin:14px 0 8px;font-size:23px;line-height:1.2;font-weight:600;letter-spacing:-.055em}
+.project-summary{min-height:50px;margin:0;color:var(--color-muted);font-size:13px;line-height:1.75}
+.project-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.project-tags span{padding:5px 8px;border:1px solid var(--color-line);border-radius:var(--radius-pill);color:var(--color-muted);font-size:10px}
+@media(max-width:640px){.project-visual{min-height:260px}.visual-content{min-height:225px}.project-content{padding:18px}}
 </style>

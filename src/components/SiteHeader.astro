@@ -1,88 +1,59 @@
 ---
 const navItems = [
   { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
   { label: "About", href: "/about/" },
   { label: "Contact", href: "/#contact" }
 ];
 ---
-
 <header class="site-header">
   <div class="container header-inner">
-    <a class="wordmark" href="/" aria-label="Invincible home">
-      <span class="wordmark-mark">i.</span>
-      <span>INVINCIBLE<span class="wordmark-period">.</span></span>
-    </a>
-    <nav aria-label="Main navigation">
-      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-    </nav>
-    <a class="availability" href="/#contact"><span></span> Available for select projects</a>
+    <a class="wordmark" href="/" aria-label="Invincible home"><span class="wordmark-mark" aria-hidden="true">i</span><span class="wordmark-name">INVINCIBLE<span>.</span></span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">{navItems.map((item) => <a href={item.href}>{item.label}</a>)}</nav>
+    <a class="header-cta" href="/#contact">Let's talk <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open navigation menu"><span></span><span></span></button>
   </div>
+  <nav class="mobile-navigation" id="mobile-navigation" aria-label="Mobile navigation" hidden>
+    {navItems.map((item) => <a href={item.href}>{item.label}<span aria-hidden="true">↗</span></a>)}
+    <a class="mobile-github" href="https://github.com/iRaazSidhu" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span></a>
+  </nav>
 </header>
-
+<script>
+  const menuToggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const mobileNavigation = document.querySelector<HTMLElement>("#mobile-navigation");
+  if (menuToggle && mobileNavigation) {
+    const setMenuOpen = (open: boolean) => {
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+      mobileNavigation.hidden = !open;
+    };
+    menuToggle.addEventListener("click", () => setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true"));
+    mobileNavigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenuOpen(false)));
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") setMenuOpen(false); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 760) setMenuOpen(false); });
+  }
+</script>
 <style>
-  .site-header {
-    border-bottom: 1px solid var(--color-line);
-  }
-  .header-inner {
-    min-height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  .wordmark {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-  }
-  .wordmark-mark {
-    display: grid;
-    width: 32px;
-    height: 32px;
-    place-items: center;
-    border-radius: 50%;
-    color: var(--color-bg);
-    background: var(--color-accent);
-    font-size: 19px;
-    letter-spacing: -0.08em;
-  }
-  .wordmark-period { color: var(--color-accent); }
-  nav {
-    display: flex;
-    align-items: center;
-    gap: clamp(18px, 3vw, 38px);
-  }
-  nav a, .availability {
-    color: var(--color-muted);
-    font-size: 12px;
-    transition: color 180ms ease;
-  }
-  nav a:hover, .availability:hover { color: var(--color-text); }
-  .availability {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    white-space: nowrap;
-  }
-  .availability span {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 12px rgb(215 255 100 / 45%);
-  }
-  @media (max-width: 720px) {
-    .header-inner { min-height: 72px; flex-wrap: wrap; gap: 16px; padding-block: 16px; }
-    .availability { display: none; }
-    nav { gap: 18px; }
-  }
-  @media (max-width: 420px) {
-    .wordmark { font-size: 10px; gap: 7px; }
-    .wordmark-mark { width: 28px; height: 28px; }
-    nav { gap: 12px; }
-    nav a { font-size: 11px; }
-  }
+.site-header{position:sticky;z-index:50;top:0;background:rgb(255 255 255 / 92%);border-bottom:1px solid var(--color-line);backdrop-filter:blur(16px)}
+.header-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.wordmark{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto}
+.wordmark-mark{width:28px;height:28px;display:grid;place-items:center;border-radius:var(--radius-sm);background:var(--color-ink);color:#fff;font-size:16px;font-weight:600;letter-spacing:-.06em}
+.wordmark-name{color:var(--color-ink);font-size:12px;font-weight:600;letter-spacing:.08em}
+.wordmark-name span{color:var(--color-link)}
+.desktop-nav{display:flex;align-items:center;gap:clamp(8px,1.7vw,24px)}
+.desktop-nav a{padding:8px 10px;border-radius:var(--radius-pill);color:var(--color-muted);font-size:14px;transition:background-color 160ms ease,color 160ms ease}
+.desktop-nav a:hover{color:var(--color-ink);background:var(--color-surface-raised)}
+.header-cta{min-height:36px;display:inline-flex;align-items:center;gap:12px;padding:0 14px;border-radius:var(--radius-sm);background:var(--color-ink);color:#fff;font-size:13px;font-weight:500;transition:background-color 160ms ease}
+.header-cta:hover{background:#333}.header-cta span{font-size:15px}.menu-toggle,.mobile-navigation{display:none}
+@media(max-width:760px){
+.header-inner{gap:12px}.desktop-nav,.header-cta{display:none}
+.menu-toggle{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;border:1px solid var(--color-line);border-radius:var(--radius-sm);background:#fff;cursor:pointer}
+.menu-toggle span{width:17px;height:1.5px;background:var(--color-ink);transition:transform 160ms ease}
+.menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(3.25px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-3.25px) rotate(-45deg)}
+.mobile-navigation:not([hidden]){display:flex;flex-direction:column;padding:8px 16px 18px;border-top:1px solid var(--color-line);background:#fff}
+.mobile-navigation a{display:flex;min-height:48px;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-line);color:var(--color-ink);font-size:15px}
+.mobile-navigation a span{color:var(--color-link)}
+.mobile-navigation .mobile-github{margin-top:10px;border-bottom:0;color:var(--color-muted);font-size:13px}
+}
 </style>

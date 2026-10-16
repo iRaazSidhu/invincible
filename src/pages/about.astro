@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import SiteHeader from "@components/SiteHeader.astro";
+import SiteFooter from "@components/SiteFooter.astro";
 
 const capabilities = [
   {
@@ -48,6 +49,7 @@ const principles = [
   title="About — Invincible"
   description="Get to know the thinking, approach and capabilities behind Invincible: UI/UX design, web design and front-end development."
 >
+  <div id="top"></div>
   <SiteHeader />
   <main>
     <section class="about-hero container" aria-labelledby="about-title">
@@ -149,11 +151,7 @@ const principles = [
     </section>
   </main>
 
-  <footer class="site-footer container">
-    <a class="footer-mark" href="/">INVINCIBLE<span class="accent">.</span></a>
-    <span>Designed with intent · Built for the web</span>
-    <a href="#about-title">Back to top ↑</a>
-  </footer>
+  <SiteFooter />
 </BaseLayout>
 
 <style>
@@ -169,12 +167,12 @@ const principles = [
   .intro-support { margin: 5px 0 0; color: var(--color-muted); font-size: 14px; line-height: 1.9; }
   .hero-bottomline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: clamp(58px, 8vw, 95px); padding-top: 20px; border-top: 1px solid var(--color-line); color: var(--color-muted); font: 9px var(--font-mono); letter-spacing: .1em; }
   .line-symbol { color: var(--color-accent); }
-  .manifesto { padding: clamp(74px, 10vw, 124px) 0; background: var(--color-accent); color: var(--color-bg); }
-  .manifesto .eyebrow { color: rgb(16 17 15 / 65%); }
-  .manifesto .eyebrow::before { background: var(--color-bg); }
+  .manifesto { padding: clamp(74px, 10vw, 124px) 0; background: var(--color-ink); color: var(--color-on-primary); }
+  .manifesto .eyebrow { color: rgb(255 255 255 / 65%); }
+  .manifesto .eyebrow::before { background: var(--color-on-primary); }
   .manifesto h2 { margin: 30px 0 24px; font-size: clamp(34px, 6.2vw, 76px); line-height: 1.08; font-weight: 600; letter-spacing: -.07em; }
-  .manifesto h2 span { color: rgb(16 17 15 / 40%); }
-  .manifesto-inner > p { margin: 0; color: rgb(16 17 15 / 70%); font-size: 13px; }
+  .manifesto h2 span { color: rgb(255 255 255 / 48%); }
+  .manifesto-inner > p { margin: 0; color: rgb(255 255 255 / 72%); font-size: 13px; }
   .capabilities { padding-top: clamp(80px, 11vw, 132px); padding-bottom: clamp(80px, 11vw, 132px); }
   .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
   .section-heading h2, .approach-heading h2, .toolkit h2 { margin: 18px 0 0; font-size: clamp(42px, 6vw, 72px); line-height: 1; font-weight: 600; letter-spacing: -.075em; }
@@ -185,7 +183,7 @@ const principles = [
   .capability-row h3 { margin: 0; font-size: clamp(16px, 2vw, 21px); font-weight: 500; letter-spacing: -.04em; }
   .capability-row p { margin: 0; color: var(--color-muted); font-size: 12px; line-height: 1.8; }
   .row-arrow { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--color-line); border-radius: 50%; color: var(--color-accent); }
-  .approach-section { padding: clamp(78px, 10vw, 124px) 0; background: #141512; border-block: 1px solid var(--color-line); }
+  .approach-section { padding: clamp(78px, 10vw, 124px) 0; background: var(--color-surface-raised); border-block: 1px solid var(--color-line); }
   .approach-layout { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr); gap: clamp(38px, 9vw, 130px); }
   .approach-heading { align-self: start; }
   .approach-heading h2 { margin-bottom: 26px; }
@@ -200,12 +198,12 @@ const principles = [
   .tool-tags { display: flex; flex-wrap: wrap; gap: 10px; }
   .tool-tags span { padding: 11px 14px; border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-text); font-size: 11px; }
   .toolkit-copy .tool-note { margin-top: 22px; font-size: 11px; }
-  .contact-section { padding: clamp(80px, 12vw, 145px) 0; background: var(--color-accent); color: var(--color-bg); }
-  .contact-section .eyebrow { color: rgb(16 17 15 / 65%); }
-  .contact-section .eyebrow::before { background: var(--color-bg); }
+  .contact-section { padding: clamp(80px, 12vw, 145px) 0; background: var(--color-ink); color: var(--color-on-primary); }
+  .contact-section .eyebrow { color: rgb(255 255 255 / 65%); }
+  .contact-section .eyebrow::before { background: var(--color-on-primary); }
   .contact-inner h2 { margin: 24px 0 42px; font-size: clamp(58px, 10vw, 124px); line-height: .98; font-weight: 600; letter-spacing: -.085em; }
-  .contact-accent { color: rgb(16 17 15 / 42%); }
-  .contact-link { display: inline-flex; align-items: center; gap: 36px; padding-bottom: 12px; border-bottom: 1px solid rgb(16 17 15 / 35%); font-size: 14px; font-weight: 700; }
+  .contact-accent { color: rgb(255 255 255 / 58%); }
+  .contact-link { display: inline-flex; align-items: center; gap: 36px; padding-bottom: 12px; border-bottom: 1px solid rgb(255 255 255 / 35%); font-size: 14px; font-weight: 700; }
   .contact-link span { font-size: 20px; }
   .site-footer { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--color-muted); font: 10px var(--font-mono); }
   .footer-mark { color: var(--color-text); font: 800 11px var(--font-sans); letter-spacing: .14em; }
