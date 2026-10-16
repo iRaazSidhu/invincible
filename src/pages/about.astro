@@ -1,0 +1,229 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+
+const capabilities = [
+  {
+    number: "01",
+    title: "Digital product design",
+    description: "User flows, wireframes and high-fidelity interfaces shaped around real needs and clear outcomes."
+  },
+  {
+    number: "02",
+    title: "Web design & development",
+    description: "Responsive marketing sites and portfolio experiences, from visual direction through front-end build."
+  },
+  {
+    number: "03",
+    title: "Interaction & motion",
+    description: "Purposeful transitions, hover states and micro-interactions that make interfaces feel considered."
+  },
+  {
+    number: "04",
+    title: "Design systems",
+    description: "Reusable components, consistent styling and practical patterns that help digital products scale."
+  }
+];
+
+const principles = [
+  {
+    number: "01 / CLARITY",
+    title: "Make the complex feel simple.",
+    description: "Good design gives people a clear next step. Every layout, interaction and line of copy should earn its place."
+  },
+  {
+    number: "02 / CRAFT",
+    title: "Details are part of the idea.",
+    description: "Spacing, typography, responsive behaviour and motion work together to shape how an experience feels."
+  },
+  {
+    number: "03 / CURIOSITY",
+    title: "Keep learning by making.",
+    description: "I explore new tools and techniques, test ideas in the browser and keep refining the work through iteration."
+  }
+];
+---
+
+<BaseLayout
+  title="About — Invincible"
+  description="Get to know the thinking, approach and capabilities behind Invincible: UI/UX design, web design and front-end development."
+>
+  <SiteHeader />
+  <main>
+    <section class="about-hero container" aria-labelledby="about-title">
+      <div class="hero-kicker">
+        <span class="eyebrow">A little context</span>
+        <span class="page-index">ABOUT / 001</span>
+      </div>
+
+      <h1 id="about-title">Design with intent.<br /><span class="accent">Build with purpose.</span></h1>
+
+      <div class="hero-intro">
+        <p class="intro-lead">I’m a UI/UX designer and web developer who brings thoughtful design and front-end craft together to create digital experiences that feel clear, useful and distinct.</p>
+        <p class="intro-support">I enjoy taking an idea from its first rough outline to a considered interface—balancing how it looks, how it works and how it feels to use.</p>
+      </div>
+
+      <div class="hero-bottomline">
+        <span>DESIGN THINKING</span>
+        <span class="line-symbol">×</span>
+        <span>INTERFACE CRAFT</span>
+        <span class="line-symbol">×</span>
+        <span>FRONT-END BUILD</span>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="container manifesto-inner">
+        <span class="eyebrow">The point of it all</span>
+        <h2>Good digital work isn't just about how it <span>looks.</span><br />It's about what it makes <span>possible.</span></h2>
+        <p>Less noise. Better decisions. More meaningful experiences.</p>
+      </div>
+    </section>
+
+    <section class="capabilities container" aria-labelledby="capabilities-title">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">What I bring to the table</span>
+          <h2 id="capabilities-title">Areas of focus<span class="accent">.</span></h2>
+        </div>
+        <p>Strategy to screen.<br />Concept to interaction.</p>
+      </div>
+
+      <div class="capability-list">
+        {capabilities.map((item) => (
+          <article class="capability-row">
+            <span class="row-number">{item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <span class="row-arrow" aria-hidden="true">↗</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="approach-section">
+      <div class="container approach-layout">
+        <div class="approach-heading">
+          <span class="eyebrow">How I think</span>
+          <h2>A simple set<br />of <span class="accent">principles.</span></h2>
+          <p>The tools change. The intention stays the same: make the experience easier to understand, use and remember.</p>
+        </div>
+
+        <div class="principle-list">
+          {principles.map((item) => (
+            <article class="principle">
+              <span class="principle-number">{item.number}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="toolkit container">
+      <div>
+        <span class="eyebrow">My working toolkit</span>
+        <h2>Tools serve<br />the <span class="accent">idea.</span></h2>
+      </div>
+      <div class="toolkit-copy">
+        <p>I choose the tools that best fit the problem, the team and the final experience. My workflow can move between design tools, no-code platforms and code.</p>
+        <div class="tool-tags" aria-label="Tools and technologies">
+          <span>Figma</span>
+          <span>Webflow</span>
+          <span>Framer</span>
+          <span>Astro</span>
+          <span>HTML & CSS</span>
+          <span>JavaScript</span>
+        </div>
+        <p class="tool-note">This toolkit keeps evolving as I learn, experiment and build.</p>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container contact-inner">
+        <span class="eyebrow">Have a good problem to solve?</span>
+        <h2>Let's make<br /><span class="contact-accent">something matter.</span></h2>
+        <a class="contact-link" href="mailto:your-email@example.com">Start a conversation <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <a class="footer-mark" href="/">INVINCIBLE<span class="accent">.</span></a>
+    <span>Designed with intent · Built for the web</span>
+    <a href="#about-title">Back to top ↑</a>
+  </footer>
+</BaseLayout>
+
+<style>
+  .accent { color: var(--color-accent); }
+  .about-hero { padding-top: clamp(52px, 8vw, 100px); padding-bottom: clamp(66px, 10vw, 122px); }
+  .hero-kicker { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .page-index { color: var(--color-muted); font: 10px var(--font-mono); letter-spacing: .12em; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+  .about-hero h1 { margin: clamp(50px, 8vw, 100px) 0 46px; font-size: clamp(54px, 10vw, 128px); font-weight: 600; line-height: .96; letter-spacing: -.085em; }
+  .about-hero h1 .accent { color: var(--color-accent); }
+  .hero-intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(220px, .75fr); gap: clamp(28px, 7vw, 100px); align-items: start; max-width: 980px; }
+  .intro-lead { margin: 0; max-width: 630px; font-size: clamp(18px, 2.3vw, 25px); line-height: 1.65; letter-spacing: -.035em; }
+  .intro-support { margin: 5px 0 0; color: var(--color-muted); font-size: 14px; line-height: 1.9; }
+  .hero-bottomline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: clamp(58px, 8vw, 95px); padding-top: 20px; border-top: 1px solid var(--color-line); color: var(--color-muted); font: 9px var(--font-mono); letter-spacing: .1em; }
+  .line-symbol { color: var(--color-accent); }
+  .manifesto { padding: clamp(74px, 10vw, 124px) 0; background: var(--color-accent); color: var(--color-bg); }
+  .manifesto .eyebrow { color: rgb(16 17 15 / 65%); }
+  .manifesto .eyebrow::before { background: var(--color-bg); }
+  .manifesto h2 { margin: 30px 0 24px; font-size: clamp(34px, 6.2vw, 76px); line-height: 1.08; font-weight: 600; letter-spacing: -.07em; }
+  .manifesto h2 span { color: rgb(16 17 15 / 40%); }
+  .manifesto-inner > p { margin: 0; color: rgb(16 17 15 / 70%); font-size: 13px; }
+  .capabilities { padding-top: clamp(80px, 11vw, 132px); padding-bottom: clamp(80px, 11vw, 132px); }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
+  .section-heading h2, .approach-heading h2, .toolkit h2 { margin: 18px 0 0; font-size: clamp(42px, 6vw, 72px); line-height: 1; font-weight: 600; letter-spacing: -.075em; }
+  .section-heading > p { margin: 0 0 5px; color: var(--color-muted); font: 10px/1.8 var(--font-mono); text-align: right; }
+  .capability-list { border-top: 1px solid var(--color-line); }
+  .capability-row { display: grid; grid-template-columns: 50px minmax(190px, .95fr) minmax(220px, 1fr) 38px; align-items: center; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--color-line); }
+  .row-number { color: var(--color-muted); font: 10px var(--font-mono); }
+  .capability-row h3 { margin: 0; font-size: clamp(16px, 2vw, 21px); font-weight: 500; letter-spacing: -.04em; }
+  .capability-row p { margin: 0; color: var(--color-muted); font-size: 12px; line-height: 1.8; }
+  .row-arrow { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--color-line); border-radius: 50%; color: var(--color-accent); }
+  .approach-section { padding: clamp(78px, 10vw, 124px) 0; background: #141512; border-block: 1px solid var(--color-line); }
+  .approach-layout { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr); gap: clamp(38px, 9vw, 130px); }
+  .approach-heading { align-self: start; }
+  .approach-heading h2 { margin-bottom: 26px; }
+  .approach-heading > p { max-width: 330px; margin: 0; color: var(--color-muted); font-size: 13px; line-height: 1.9; }
+  .principle-list { border-top: 1px solid var(--color-line); }
+  .principle { padding: 26px 0 29px; border-bottom: 1px solid var(--color-line); }
+  .principle-number { color: var(--color-accent); font: 10px var(--font-mono); letter-spacing: .08em; }
+  .principle h3 { margin: 16px 0 10px; font-size: clamp(19px, 2.4vw, 25px); font-weight: 500; letter-spacing: -.045em; }
+  .principle p { max-width: 520px; margin: 0; color: var(--color-muted); font-size: 13px; line-height: 1.9; }
+  .toolkit { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr); gap: clamp(38px, 9vw, 130px); padding-top: clamp(80px, 11vw, 132px); padding-bottom: clamp(80px, 11vw, 132px); }
+  .toolkit-copy > p { max-width: 600px; margin: 0 0 24px; color: var(--color-muted); font-size: 14px; line-height: 1.9; }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tool-tags span { padding: 11px 14px; border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-text); font-size: 11px; }
+  .toolkit-copy .tool-note { margin-top: 22px; font-size: 11px; }
+  .contact-section { padding: clamp(80px, 12vw, 145px) 0; background: var(--color-accent); color: var(--color-bg); }
+  .contact-section .eyebrow { color: rgb(16 17 15 / 65%); }
+  .contact-section .eyebrow::before { background: var(--color-bg); }
+  .contact-inner h2 { margin: 24px 0 42px; font-size: clamp(58px, 10vw, 124px); line-height: .98; font-weight: 600; letter-spacing: -.085em; }
+  .contact-accent { color: rgb(16 17 15 / 42%); }
+  .contact-link { display: inline-flex; align-items: center; gap: 36px; padding-bottom: 12px; border-bottom: 1px solid rgb(16 17 15 / 35%); font-size: 14px; font-weight: 700; }
+  .contact-link span { font-size: 20px; }
+  .site-footer { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--color-muted); font: 10px var(--font-mono); }
+  .footer-mark { color: var(--color-text); font: 800 11px var(--font-sans); letter-spacing: .14em; }
+  .site-footer a:last-child { white-space: nowrap; }
+  @media (max-width: 760px) {
+    .hero-intro, .approach-layout, .toolkit { grid-template-columns: 1fr; gap: 30px; }
+    .capability-row { grid-template-columns: 32px minmax(0, 1fr) 34px; gap: 13px; }
+    .capability-row p { grid-column: 2 / 3; }
+    .row-arrow { grid-column: 3; grid-row: 1; }
+  }
+  @media (max-width: 560px) {
+    .hero-kicker { align-items: start; flex-direction: column; }
+    .about-hero h1 { font-size: clamp(48px, 13vw, 72px); }
+    .hero-bottomline { gap: 8px; font-size: 8px; }
+    .section-heading { align-items: start; flex-direction: column; }
+    .section-heading > p { text-align: left; }
+    .manifesto h2 { font-size: clamp(32px, 9vw, 48px); }
+    .site-footer { flex-wrap: wrap; padding-block: 24px; }
+    .site-footer > span { order: 3; width: 100%; }
+  }
+</style>
