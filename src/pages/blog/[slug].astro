@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+import SiteFooter from "@components/SiteFooter.astro";
+import { blogPosts } from "../../data/blog";
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const origin = Astro.site ?? new URL("https://invincible-seven.vercel.app");
+const canonicalUrl = new URL(`/blog/${post.slug}/`, origin).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.description,
+  "datePublished": post.publishedAt,
+  "dateModified": post.publishedAt,
+  "mainEntityOfPage": canonicalUrl,
+  "author": { "@type": "Organization", "name": "Invincible" },
+  "publisher": { "@type": "Organization", "name": "Invincible" }
+};
+const relatedPosts = blogPosts.filter((candidate) => candidate.slug !== post.slug).slice(0, 2);
+const dateLabel = new Date(post.publishedAt + "T00:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+<BaseLayout title={`${post.title} | Invincible Blog`} description={post.description} canonical={canonicalUrl} ogType="article" publishedTime={post.publishedAt}>
+  <SiteHeader />
+  <main>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <article>
+      <header class="article-header container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span aria-current="page">Article</span></nav>
+        <p class="eyebrow">{post.category}</p>
+        <h1>{post.title}</h1>
+        <p class="article-deck">{post.description}</p>
+        <div class="article-meta"><time datetime={post.publishedAt}>{dateLabel}</time><span>{post.readingTime}</span><span>Invincible / Notes</span></div>
+      </header>
+      <div class="article-art container" aria-hidden="true"><span class="art-label">FIELD NOTES / {post.category.toUpperCase()}</span><div class="art-lines"><i></i><i></i><i></i><i></i><i></i></div><span class="art-monogram">i.</span></div>
+      <div class="article-body container">
+        <p class="article-intro">{post.intro}</p>
+        {post.sections.map((section, index) => (
+          <section class="content-section">
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            {section.bullets && <ul>{section.bullets.map((item) => <li>{item}</li>)}</ul>}
+          </section>
+        ))}
+        <aside class="article-endnote"><p class="eyebrow">Keep exploring</p><p>Good digital work is a series of clear decisions. Use these notes as a starting point, then test what works for your own audience and project.</p><a class="text-link" href="/contact/">Discuss a project <span aria-hidden="true">↗</span></a></aside>
+      </div>
+    </article>
+    <section class="related-section"><div class="container"><div class="section-top"><h2>Related reading<span class="accent">.</span></h2><a class="text-link" href="/blog/">All articles <span aria-hidden="true">↗</span></a></div><div class="related-grid">{relatedPosts.map((related) => <article><p class="eyebrow">{related.category} · {related.readingTime}</p><h3><a href={`/blog/${related.slug}/`}>{related.title}</a></h3><p>{related.description}</p><a class="text-link" href={`/blog/${related.slug}/`}>Read article <span aria-hidden="true">→</span></a></article>)}</div></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<style>
+.accent{color:var(--color-link)}.article-header{max-width:940px;padding-top:40px;padding-bottom:40px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 62px;color:var(--color-subtle);font:11px var(--font-mono)}.breadcrumbs a:hover{color:var(--color-link)}.eyebrow{margin:0 0 19px;color:var(--color-muted);font:10px var(--font-mono);letter-spacing:.03em}.article-header h1{margin:0;font-size:clamp(42px,7.3vw,86px);line-height:1.02;letter-spacing:-.08em}.article-deck{max-width:760px;margin:24px 0 26px;color:var(--color-muted);font-size:clamp(17px,2vw,21px);line-height:1.8}.article-meta{display:flex;flex-wrap:wrap;gap:10px 24px;padding-top:18px;border-top:1px solid var(--color-line);color:var(--color-subtle);font:10px var(--font-mono)}.article-art{height:clamp(230px,37vw,420px);position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid var(--color-line);border-radius:var(--radius-md);background:radial-gradient(ellipse at 25% 22%,rgb(0 124 240 / 14%),transparent 42%),radial-gradient(ellipse at 75% 70%,rgb(255 0 128 / 8%),transparent 45%),#f4f4f4}.art-label{position:absolute;left:20px;top:20px;color:var(--color-subtle);font:9px var(--font-mono)}.art-lines{width:56%;display:grid;gap:10px;transform:rotate(-7deg)}.art-lines i{height:clamp(10px,2.5vw,25px);border:1px solid #ccc;border-radius:100px;background:rgb(255 255 255 / 55%)}.art-lines i:nth-child(2){width:84%;background:#171717}.art-lines i:nth-child(3){width:93%;background:#0070f3}.art-lines i:nth-child(4){width:70%}.art-lines i:nth-child(5){width:88%}.art-monogram{position:absolute;right:22px;bottom:16px;color:var(--color-ink);font-size:32px;font-weight:600;letter-spacing:-.08em}.article-body{max-width:760px;padding-top:clamp(40px,7vw,75px);padding-bottom:clamp(60px,9vw,100px)}.article-intro{margin:0 0 36px;font-size:clamp(18px,2.2vw,22px);line-height:1.85;letter-spacing:-.02em}.content-section{margin:38px 0 0}.content-section h2{margin:0 0 17px;font-size:clamp(25px,4vw,34px);line-height:1.15;letter-spacing:-.06em}.content-section p,.article-endnote>p:not(.eyebrow){margin:0 0 17px;color:var(--color-muted);font-size:15px;line-height:1.95}.content-section ul{display:grid;gap:10px;margin:16px 0 22px;padding-left:22px}.content-section li{padding-left:3px;color:var(--color-muted);font-size:14px;line-height:1.8}.content-section li::marker{color:var(--color-link)}.article-endnote{margin-top:52px;padding:26px;border:1px solid var(--color-line);border-radius:var(--radius-md);background:var(--color-surface-soft)}.article-endnote .eyebrow{margin-bottom:14px}.article-endnote>p:not(.eyebrow){margin-bottom:16px}.text-link{display:inline-flex;gap:8px;color:var(--color-link);font-size:13px;font-weight:500}.related-section{padding:clamp(60px,9vw,94px) 0;background:var(--color-surface-raised);border-top:1px solid var(--color-line)}.section-top{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:23px;padding-bottom:16px;border-bottom:1px solid var(--color-line)}.section-top h2{margin:0;font-size:clamp(27px,4vw,38px);letter-spacing:-.07em}.related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.related-grid article{padding:24px;border:1px solid var(--color-line);border-radius:var(--radius-md);background:#fff}.related-grid .eyebrow{margin-bottom:14px}.related-grid h3{margin:0 0 12px;font-size:23px;line-height:1.2;letter-spacing:-.055em}.related-grid h3 a:hover{color:var(--color-link)}.related-grid article>p:not(.eyebrow){margin:0 0 22px;color:var(--color-muted);font-size:13px;line-height:1.8}@media(max-width:650px){.article-header{padding-top:28px}.breadcrumbs{margin-bottom:46px}.related-grid{grid-template-columns:1fr}.article-endnote{padding:20px}}
+</style>
