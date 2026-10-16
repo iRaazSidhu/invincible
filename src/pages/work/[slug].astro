@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+import SiteFooter from "@components/SiteFooter.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const projectUrl = new URL(`/work/${project.slug}/`, Astro.site ?? new URL("https://invincible-seven.vercel.app")).toString();
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": project.title,
+  "description": project.summary,
+  "genre": project.category,
+  "url": projectUrl,
+  "creator": { "@type": "Organization", "name": "Invincible" }
+};
+---
+<BaseLayout title={`${project.title} Case Study — Invincible`} description={project.summary} canonical={projectUrl}>
+  <SiteHeader />
+  <main>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <section class="case-hero container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/work/">Work</a><span>/</span><span aria-current="page">{project.title}</span></nav>
+      <p class="eyebrow">{project.number} / {project.category}</p>
+      <h1>{project.title}<span class="accent">.</span></h1>
+      <p class="case-lead">{project.summary}</p>
+      <div class="case-meta"><span>PROJECT TYPE <b>{project.category}</b></span><span>YEAR <b>{project.year}</b></span><span>FOCUS <b>Digital experience</b></span></div>
+    </section>
+    <section class="case-visual" aria-label={`${project.title} visual direction`}>
+      <div class="case-visual-inner container"><span class="visual-index">INVINCIBLE / CASE STUDY {project.number}</span><div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div><div class="visual-core">{project.title.slice(0, 1)}</div><span class="visual-name">{project.title.toUpperCase()}</span></div>
+    </section>
+    <section class="container case-content">
+      <div class="case-section case-overview"><p class="section-kicker">01 / CONTEXT</p><div><h2>Overview<span class="accent">.</span></h2><p>{project.context}</p></div></div>
+      <div class="case-section"><p class="section-kicker">02 / THE CHALLENGE</p><div><h2>The challenge<span class="accent">.</span></h2><p>{project.challenge}</p></div></div>
+      <div class="case-section"><p class="section-kicker">03 / APPROACH</p><div><h2>Design approach<span class="accent">.</span></h2><div class="approach-list">{project.approach.map((item, index) => <article><span>{String(index + 1).padStart(2, "0")}</span><p>{item}</p></article>)}</div></div></div>
+      <div class="case-section"><p class="section-kicker">04 / AREAS OF FOCUS</p><div><h2>What shaped it<span class="accent">.</span></h2><div class="tag-list">{project.focusAreas.map((item) => <span>{item}</span>)}</div><h3 class="deliverable-heading">Experience components</h3><ul class="deliverable-list">{project.deliverables.map((item) => <li>{item}</li>)}</ul></div></div>
+    </section>
+    <section class="next-project"><div class="container next-inner"><p class="eyebrow">Continue exploring</p>{project.nextProject ? <a href={`/work/${project.nextProject}/`} class="next-link"><span>Next case study</span><strong>{projects.find((item) => item.slug === project.nextProject)?.title} <span aria-hidden="true">↗</span></strong></a> : <a href="/work/" class="next-link"><span>Back to selected work</span><strong>Explore all projects <span aria-hidden="true">↗</span></strong></a>}<a class="text-link" href="/contact/">Discuss a project <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<style>
+.accent{color:var(--color-link)}.case-hero{padding-top:40px;padding-bottom:58px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 65px;color:var(--color-subtle);font:11px var(--font-mono)}.breadcrumbs a:hover{color:var(--color-link)}.eyebrow{margin:0 0 18px;color:var(--color-muted);font:11px var(--font-mono)}.case-hero h1{margin:0;font-size:clamp(64px,13vw,150px);line-height:.95;letter-spacing:-.09em}.case-lead{max-width:760px;margin:26px 0 0;color:var(--color-muted);font-size:clamp(18px,2.6vw,26px);line-height:1.65;letter-spacing:-.03em}.case-meta{display:flex;flex-wrap:wrap;gap:clamp(22px,5vw,70px);margin-top:58px;padding-top:18px;border-top:1px solid var(--color-line)}.case-meta span{display:flex;flex-direction:column;gap:8px;color:var(--color-subtle);font:9px var(--font-mono);letter-spacing:.04em}.case-meta b{color:var(--color-ink);font:500 12px var(--font-sans);letter-spacing:0}.case-visual{background:radial-gradient(ellipse at 45% 45%,rgb(0 124 240 / 15%),transparent 37%),radial-gradient(ellipse at 65% 40%,rgb(121 40 202 / 10%),transparent 38%),var(--color-surface-raised);border-block:1px solid var(--color-line)}.case-visual-inner{height:clamp(300px,50vw,560px);position:relative;display:grid;place-items:center;overflow:hidden}.visual-index,.visual-name{position:absolute;left:24px;color:var(--color-subtle);font:10px var(--font-mono);letter-spacing:.05em}.visual-index{top:24px}.visual-name{bottom:24px;right:24px;left:auto}.visual-orbit{position:absolute;width:min(58%,500px);aspect-ratio:1;border:1px solid #d0d0d0;border-radius:50%;transform:rotate(-28deg) scaleY(.5)}.orbit-b{width:min(72%,620px);transform:rotate(45deg) scaleY(.47)}.visual-core{width:clamp(100px,16vw,176px);aspect-ratio:1;display:grid;place-items:center;border-radius:28%;background:var(--color-ink);color:#fff;font-size:clamp(50px,9vw,90px);font-weight:600;letter-spacing:-.09em;box-shadow:0 24px 70px rgb(0 0 0 / 13%)}.case-content{padding-top:clamp(58px,9vw,106px);padding-bottom:clamp(58px,9vw,106px)}.case-section{display:grid;grid-template-columns:minmax(145px,.5fr) minmax(0,1.5fr);gap:clamp(28px,7vw,100px);padding:35px 0;border-bottom:1px solid var(--color-line)}.section-kicker{margin:8px 0;color:var(--color-subtle);font:10px var(--font-mono)}.case-section h2{margin:0 0 20px;font-size:clamp(30px,5vw,48px);line-height:1.05;letter-spacing:-.07em}.case-section p:not(.section-kicker){max-width:760px;margin:0;color:var(--color-muted);font-size:16px;line-height:1.9}.approach-list{border-top:1px solid var(--color-line)}.approach-list article{display:grid;grid-template-columns:40px 1fr;gap:18px;padding:19px 0;border-bottom:1px solid var(--color-line)}.approach-list article>span{color:var(--color-link);font:10px var(--font-mono)}.case-section .approach-list p{font-size:14px!important}.tag-list{display:flex;flex-wrap:wrap;gap:9px}.tag-list span{padding:10px 13px;border:1px solid var(--color-line);border-radius:var(--radius-pill);font-size:12px}.deliverable-heading{margin:32px 0 14px;font-size:17px;letter-spacing:-.03em}.deliverable-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 28px;padding:0;list-style:none}.deliverable-list li{position:relative;padding-left:18px;color:var(--color-muted);font-size:13px;line-height:1.7}.deliverable-list li::before{position:absolute;left:0;color:var(--color-link);content:"↗"}.next-project{padding:clamp(60px,8vw,90px) 0;background:var(--color-surface-raised);border-top:1px solid var(--color-line)}.next-inner{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}.next-inner>.eyebrow{grid-column:1/-1;margin:0}.next-link{display:flex;flex-direction:column;gap:9px}.next-link>span{color:var(--color-muted);font:10px var(--font-mono)}.next-link strong{font-size:clamp(25px,4vw,40px);letter-spacing:-.06em}.next-link strong span{color:var(--color-link)}.text-link{color:var(--color-link);font-size:13px}@media(max-width:650px){.case-hero{padding-top:28px}.breadcrumbs{margin-bottom:48px}.case-meta{gap:22px;margin-top:38px}.case-section{grid-template-columns:1fr;gap:14px}.deliverable-list{grid-template-columns:1fr}.next-inner{grid-template-columns:1fr;align-items:start}.next-link strong{font-size:30px}}
+</style>
