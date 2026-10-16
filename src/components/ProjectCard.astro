@@ -1,0 +1,106 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  category: string;
+  year: string;
+  tone?: "lime" | "violet" | "orange";
+}
+
+const { number, title, category, year, tone = "lime" } = Astro.props;
+---
+
+<article class={`project-card project-card--${tone}`}>
+  <div class="project-art" aria-hidden="true">
+    <div class="art-orbit art-orbit--one"></div>
+    <div class="art-orbit art-orbit--two"></div>
+    <div class="art-core"><span>{number}</span></div>
+    <span class="art-label">SELECTED WORK / {year}</span>
+  </div>
+  <div class="project-info">
+    <div>
+      <p>{category}</p>
+      <h3>{title}</h3>
+    </div>
+    <span class="project-arrow" aria-hidden="true">↗</span>
+  </div>
+</article>
+
+<style>
+  .project-card { min-width: 0; }
+  .project-art {
+    min-height: 300px;
+    aspect-ratio: 1.16 / 1;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    background: #1c2118;
+    border: 1px solid var(--color-line);
+  }
+  .project-card--violet .project-art { background: #201d29; }
+  .project-card--orange .project-art { background: #2a211b; }
+  .art-orbit {
+    position: absolute;
+    width: 68%;
+    aspect-ratio: 1;
+    border: 1px solid rgb(242 240 233 / 25%);
+    border-radius: 50%;
+    transform: rotate(-28deg) scaleY(.48);
+  }
+  .art-orbit--two { width: 83%; transform: rotate(55deg) scaleY(.48); }
+  .project-card--violet .art-orbit { border-color: rgb(201 179 255 / 38%); }
+  .project-card--orange .art-orbit { border-color: rgb(255 181 117 / 38%); }
+  .art-core {
+    display: grid;
+    width: 31%;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #11120e;
+    box-shadow: 0 0 70px rgb(215 255 100 / 14%);
+    font: 500 clamp(24px, 3vw, 44px)/1 var(--font-mono);
+    transition: transform 350ms cubic-bezier(.2,.7,.2,1);
+  }
+  .project-card--violet .art-core { background: #c9b3ff; }
+  .project-card--orange .art-core { background: #ffb575; }
+  .project-card:hover .art-core { transform: scale(1.08) rotate(-9deg); }
+  .art-label {
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+    color: rgb(242 240 233 / 60%);
+    font: 10px var(--font-mono);
+    letter-spacing: .08em;
+  }
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 20px;
+  }
+  .project-info p {
+    margin: 0 0 7px;
+    color: var(--color-muted);
+    font: 10px var(--font-mono);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .project-info h3 { margin: 0; font-size: clamp(17px, 2vw, 21px); letter-spacing: -.04em; }
+  .project-arrow {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    font-size: 17px;
+    transition: background 180ms ease, color 180ms ease;
+  }
+  .project-card:hover .project-arrow { background: var(--color-accent); color: var(--color-bg); }
+  @media (max-width: 640px) { .project-art { min-height: 245px; } }
+</style>
