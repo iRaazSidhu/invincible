@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+import SiteFooter from "@components/SiteFooter.astro";
+---
+<BaseLayout title="Privacy Notice — Invincible" description="Privacy information for visitors to the Invincible portfolio website.">
+  <SiteHeader />
+  <main>
+    <section class="container privacy-page">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Privacy</span></nav>
+      <p class="eyebrow">A plain-language note</p>
+      <h1>Privacy, without<br /><span class="accent">the fine print.</span></h1>
+      <p class="lead">This notice explains the basics of visiting the Invincible portfolio website.</p>
+      <div class="privacy-content">
+        <section><h2>Information you provide</h2><p>The pages on this site do not include an account-signup flow, payment checkout or an on-site contact form. If you contact the site owner through an external profile or service, the information you share is handled by that service and according to its own policies.</p></section>
+        <section><h2>External links</h2><p>This website links to third-party websites, including GitHub. When you follow an external link, that website may process information about your visit under its own privacy terms. Review the destination's policy before sharing personal information.</p></section>
+        <section><h2>Analytics and technical changes</h2><p>Site technology and measurement settings can change over time. If analytics, embedded third-party tools, a contact form or other data-processing features are added, this notice should be updated to explain what is collected, why it is needed and how it is handled.</p></section>
+        <section><h2>Questions</h2><p>For questions about the portfolio, use the <a href="/contact/">contact page</a> to find the available external contact route.</p></section>
+        <p class="last-updated">Last reviewed: October 16, 2026</p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<style>
+.accent{color:var(--color-link)}.privacy-page{padding-top:40px;padding-bottom:clamp(75px,11vw,130px)}.breadcrumbs{display:flex;gap:10px;margin:0 0 62px;color:var(--color-subtle);font:11px var(--font-mono)}.breadcrumbs a:hover{color:var(--color-link)}.eyebrow{margin:0 0 20px;color:var(--color-muted);font:11px var(--font-mono)}h1{margin:0;font-size:clamp(48px,9vw,96px);line-height:1;letter-spacing:-.085em}.lead{max-width:640px;margin:26px 0 52px;color:var(--color-muted);font-size:clamp(17px,2vw,20px);line-height:1.8}.privacy-content{max-width:780px;border-top:1px solid var(--color-line)}.privacy-content section{padding:24px 0;border-bottom:1px solid var(--color-line)}.privacy-content h2{margin:0 0 12px;font-size:21px;letter-spacing:-.045em}.privacy-content p{margin:0;color:var(--color-muted);font-size:14px;line-height:1.95}.privacy-content a{color:var(--color-link);text-decoration:underline;text-underline-offset:3px}.privacy-content .last-updated{margin-top:24px;color:var(--color-subtle);font:10px var(--font-mono)}@media(max-width:650px){.privacy-page{padding-top:28px}.breadcrumbs{margin-bottom:46px}}
+</style>

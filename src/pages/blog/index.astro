@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+import SiteFooter from "@components/SiteFooter.astro";
+import { blogPosts } from "../../data/blog";
+const featured = blogPosts.find((post) => post.featured) ?? blogPosts[0];
+const remainingPosts = blogPosts.filter((post) => post.slug !== featured.slug);
+const dateLabel = (date: string) => new Date(date + "T00:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+---
+<BaseLayout title="Blog — Design, No-Code & Front-End Notes | Invincible" description="Practical notes on UI/UX design, Webflow and Framer, front-end development, portfolio strategy and digital product thinking.">
+  <SiteHeader />
+  <main>
+    <section class="container blog-hero">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Blog</span></nav>
+      <p class="eyebrow">Notes from the work</p>
+      <h1>Ideas for building<br /><span class="accent">better experiences.</span></h1>
+      <p class="lead">Practical articles on design, no-code tools, front-end craft and the decisions behind useful digital products.</p>
+    </section>
+    <section class="container featured-section" aria-labelledby="featured-heading">
+      <p class="section-kicker" id="featured-heading">Start here / Featured</p>
+      <article class="featured-card">
+        <div class="featured-art" aria-hidden="true"><span class="art-caption">FIELD NOTES / 001</span><div class="art-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="art-mark">i.</span></div>
+        <div class="featured-copy"><div class="post-meta"><span>{featured.category}</span><time datetime={featured.publishedAt}>{dateLabel(featured.publishedAt)}</time></div><h2><a href={`/blog/${featured.slug}/`}>{featured.title}</a></h2><p>{featured.description}</p><div class="post-bottom"><span>{featured.readingTime}</span><a class="text-link" href={`/blog/${featured.slug}/`}>Read article <span aria-hidden="true">↗</span></a></div></div>
+      </article>
+    </section>
+    <section class="container articles-section" aria-labelledby="articles-heading">
+      <div class="section-top"><h2 id="articles-heading">Latest articles<span class="accent">.</span></h2><span class="count">{String(blogPosts.length).padStart(2, "0")} ARTICLES</span></div>
+      <div class="article-grid">
+        {remainingPosts.map((post, index) => (
+          <article class="article-card">
+            <a class={"article-art article-art-" + (index + 2)} href={`/blog/${post.slug}/`} aria-label={`Read ${post.title}`}><span class="art-caption">{post.category}</span><span class="article-index">{String(index + 2).padStart(2, "0")}</span><span class="art-arrow" aria-hidden="true">↗</span></a>
+            <div class="post-meta"><span>{post.category}</span><time datetime={post.publishedAt}>{dateLabel(post.publishedAt)}</time></div>
+            <h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3>
+            <p>{post.description}</p>
+            <div class="post-bottom"><span>{post.readingTime}</span><a class="text-link" href={`/blog/${post.slug}/`}>Read article <span aria-hidden="true">→</span></a></div>
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="topics-section"><div class="container topics-inner"><p class="eyebrow">What you'll find here</p><div class="topic-list"><span>UI/UX & web design</span><span>Webflow & Framer</span><span>Front-end & performance</span><span>Case studies & process</span></div></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+<style>
+.accent{color:var(--color-link)}.blog-hero{padding-top:40px;padding-bottom:62px}.breadcrumbs{display:flex;gap:10px;margin:0 0 62px;color:var(--color-subtle);font:11px var(--font-mono)}.breadcrumbs a:hover{color:var(--color-link)}.eyebrow{margin:0 0 20px;color:var(--color-muted);font:11px var(--font-mono)}.blog-hero h1{margin:0;font-size:clamp(48px,9vw,105px);line-height:1;letter-spacing:-.085em}.lead{max-width:680px;margin:26px 0 0;color:var(--color-muted);font-size:clamp(16px,2vw,20px);line-height:1.8}.featured-section{padding-bottom:clamp(64px,9vw,100px)}.section-kicker{margin:0 0 16px;color:var(--color-subtle);font:10px var(--font-mono)}.featured-card{display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--color-line);border-radius:var(--radius-md);overflow:hidden;background:#fff;box-shadow:var(--shadow-card)}.featured-art{min-height:350px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 30% 20%,rgb(0 124 240 / 14%),transparent 45%),radial-gradient(ellipse at 65% 75%,rgb(255 0 128 / 8%),transparent 45%),#f4f4f4;border-right:1px solid var(--color-line)}.art-caption{position:absolute;left:18px;top:18px;color:var(--color-subtle);font:9px var(--font-mono);letter-spacing:.05em}.art-grid{width:56%;aspect-ratio:1;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;transform:rotate(-8deg)}.art-grid i{border:1px solid #cfcfcf;border-radius:4px;background:rgb(255 255 255 / 55%)}.art-grid i:nth-child(2),.art-grid i:nth-child(6){background:#171717}.art-grid i:nth-child(4){background:#0070f3}.art-grid i:nth-child(8){background:#d3e5ff}.art-mark{position:absolute;right:18px;bottom:15px;color:var(--color-ink);font-size:28px;font-weight:600;letter-spacing:-.08em}.featured-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,4vw,48px)}.post-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;color:var(--color-subtle);font:10px var(--font-mono)}.featured-copy h2{margin:24px 0 16px;font-size:clamp(28px,4vw,45px);line-height:1.08;letter-spacing:-.07em}.featured-copy h2 a:hover,.article-card h3 a:hover{color:var(--color-link)}.featured-copy>p,.article-card>p{margin:0;color:var(--color-muted);font-size:13px;line-height:1.85}.post-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:26px;padding-top:17px;border-top:1px solid var(--color-line);color:var(--color-subtle);font:10px var(--font-mono)}.text-link{display:inline-flex;gap:9px;align-items:center;color:var(--color-link);font:500 12px var(--font-sans)}.articles-section{padding-bottom:clamp(75px,11vw,126px)}.section-top{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:25px;padding-bottom:17px;border-bottom:1px solid var(--color-line)}.section-top h2{margin:0;font-size:clamp(28px,4vw,40px);letter-spacing:-.07em}.count{color:var(--color-subtle);font:10px var(--font-mono)}.article-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 22px}.article-card{min-width:0}.article-art{height:clamp(200px,28vw,300px);position:relative;display:flex;align-items:end;overflow:hidden;padding:20px;border:1px solid var(--color-line);border-radius:var(--radius-md);background:radial-gradient(ellipse at 70% 25%,rgb(121 40 202 / 10%),transparent 45%),#f5f5f5}.article-art-3{background:radial-gradient(ellipse at 27% 70%,rgb(0 223 216 / 14%),transparent 45%),#f5f5f5}.article-index{font-size:clamp(80px,13vw,145px);line-height:.9;letter-spacing:-.1em;font-weight:600;color:rgb(23 23 23 / 13%)}.art-arrow{position:absolute;right:18px;bottom:18px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--color-line);border-radius:50%;background:#fff;color:var(--color-link);transition:transform 160ms ease}.article-art:hover .art-arrow{transform:translate(2px,-2px)}.article-card>.post-meta{margin-top:18px}.article-card h3{margin:14px 0 9px;font-size:clamp(21px,2.5vw,29px);line-height:1.15;letter-spacing:-.06em}.topics-section{padding:45px 0;background:var(--color-surface-raised);border-block:1px solid var(--color-line)}.topics-inner{display:flex;justify-content:space-between;gap:24px;align-items:start}.topics-inner .eyebrow{margin-top:8px}.topic-list{display:flex;flex-wrap:wrap;justify-content:end;gap:9px}.topic-list span{padding:10px 13px;border:1px solid var(--color-line);border-radius:var(--radius-pill);font-size:11px;color:var(--color-muted)}@media(max-width:740px){.featured-card{grid-template-columns:1fr}.featured-art{min-height:250px;border-right:0;border-bottom:1px solid var(--color-line)}.article-grid{grid-template-columns:1fr}.article-art{height:245px}.topics-inner{flex-direction:column}.topic-list{justify-content:start}.breadcrumbs{margin-bottom:46px}} 
+</style>

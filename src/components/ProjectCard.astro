@@ -1,11 +1,11 @@
 ---
 interface Props {
-  number: string; title: string; category: string; summary: string; year: string;
+  number: string; title: string; category: string; summary: string; year: string; href: string;
   filter: "web" | "product"; visual: "kaizenx" | "cinebit" | "zugic"; tags: string[];
 }
-const { number, title, category, summary, year, filter, visual, tags } = Astro.props;
+const { number, title, category, summary, year, href, filter, visual, tags } = Astro.props;
 ---
-<article class="project-card" data-project-card data-category={filter}>
+<a class="project-card" href={href} data-project-card data-category={filter} aria-label={`Read the ${title} case study`}>
   <div class={"project-visual project-visual--" + visual} aria-hidden="true">
     <div class="window-bar"><div class="window-controls"><i></i><i></i><i></i></div><span>INVINCIBLE / WORK SAMPLE {number}</span><span class="window-menu">•••</span></div>
     {visual === "kaizenx" && <div class="visual-content visual-content--ecosystem"><span class="visual-overline">CONNECTED DIGITAL ECOSYSTEM</span><h3>One ecosystem.<br />Many possibilities.</h3><div class="ecosystem-grid"><span>Exchange <b>↗</b></span><span>Wallet <b>↗</b></span><span>Discover <b>↗</b></span></div><div class="visual-foot"><span>01 / DIGITAL EXPERIENCE</span><span>KAIZENX</span></div></div>}
@@ -17,9 +17,9 @@ const { number, title, category, summary, year, filter, visual, tags } = Astro.p
     <h3>{title}</h3><p class="project-summary">{summary}</p>
     <div class="project-tags">{tags.map((tag) => <span>{tag}</span>)}</div>
   </div>
-</article>
+</a>
 <style>
-.project-card{min-width:0;overflow:hidden;border:1px solid var(--color-line);border-radius:var(--radius-md);background:var(--color-canvas);box-shadow:var(--shadow-card);transition:box-shadow 180ms ease,transform 180ms ease,border-color 180ms ease}
+.project-card{display:block;color:inherit;text-decoration:none;min-width:0;overflow:hidden;border:1px solid var(--color-line);border-radius:var(--radius-md);background:var(--color-canvas);box-shadow:var(--shadow-card);transition:box-shadow 180ms ease,transform 180ms ease,border-color 180ms ease}
 .project-card:hover{transform:translateY(-3px);border-color:#d8d8d8;box-shadow:var(--shadow-card-hover)}
 .project-visual{min-height:288px;position:relative;overflow:hidden;background:var(--color-surface-raised);border-bottom:1px solid var(--color-line)}
 .window-bar{height:34px;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid var(--color-line);background:#fff;color:var(--color-subtle);font:400 9px/1 var(--font-mono)}

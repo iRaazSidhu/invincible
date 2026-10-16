@@ -1,7 +1,28 @@
 ---
 import "@styles/global.css";
-interface Props { title?: string; description?: string; }
-const { title = "Invincible — Digital Design & Development", description = "An independent design and development portfolio focused on thoughtful digital experiences, clear interfaces and purposeful details." } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogType?: "website" | "article";
+  publishedTime?: string;
+  robots?: string;
+}
+const {
+  title = "Invincible — Digital Design & Development",
+  description = "An independent design and development portfolio focused on thoughtful digital experiences, clear interfaces and purposeful details.",
+  canonical,
+  ogType = "website",
+  publishedTime,
+  robots = "index,follow"
+} = Astro.props;
+const siteUrl = Astro.site ?? new URL("https://invincible-seven.vercel.app");
+const canonicalPath = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/";
+const canonicalUrl = canonical ?? new URL(canonicalPath, siteUrl).toString();
+const siteSchema = [
+  { "@context": "https://schema.org", "@type": "WebSite", "name": "Invincible", "url": siteUrl.toString() },
+  { "@context": "https://schema.org", "@type": "Organization", "name": "Invincible", "url": siteUrl.toString() }
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -11,10 +32,18 @@ const { title = "Invincible — Digital Design & Development", description = "An
   <meta name="theme-color" content="#fafafa" />
   <meta name="color-scheme" content="light" />
   <meta name="description" content={description} />
-  <meta property="og:type" content="website" />
+  <meta name="robots" content={robots} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content="Invincible" />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+  <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title}</title>
 </head>

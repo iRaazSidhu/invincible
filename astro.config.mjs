@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  output: "static"
+  site: process.env.SITE_URL || "https://invincible-seven.vercel.app",
+  output: "static",
+  trailingSlash: "always"
 });

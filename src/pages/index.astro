@@ -4,9 +4,9 @@ import SiteHeader from "@components/SiteHeader.astro";
 import SiteFooter from "@components/SiteFooter.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 const projects = [
- { number:"01", title:"KaizenX", category:"Brand & web experience", summary:"A clear digital presence for a connected ecosystem of crypto products.", year:"2026", filter:"web" as const, visual:"kaizenx" as const, tags:["Digital ecosystem","Web design"] },
- { number:"02", title:"Cinebit", category:"Digital product & UI/UX", summary:"Product interface exploration focused on content discovery and a considered viewing experience.", year:"2026", filter:"product" as const, visual:"cinebit" as const, tags:["Product design","Interface"] },
- { number:"03", title:"Zugic", category:"Corporate digital experience", summary:"A structured corporate presence designed to bring a multi-industry business into focus.", year:"2025", filter:"web" as const, visual:"zugic" as const, tags:["Corporate","Digital experience"] }
+ { number:"01", slug:"kaizenx", title:"KaizenX", category:"Brand & web experience", summary:"A clear digital presence for a connected ecosystem of crypto products.", year:"2026", filter:"web" as const, visual:"kaizenx" as const, tags:["Digital ecosystem","Web design"] },
+ { number:"02", slug:"cinebit", title:"Cinebit", category:"Digital product & UI/UX", summary:"Product interface exploration focused on content discovery and a considered viewing experience.", year:"2026", filter:"product" as const, visual:"cinebit" as const, tags:["Product design","Interface"] },
+ { number:"03", slug:"zugic", title:"Zugic", category:"Corporate digital experience", summary:"A structured corporate presence designed to bring a multi-industry business into focus.", year:"2025", filter:"web" as const, visual:"zugic" as const, tags:["Corporate","Digital experience"] }
 ];
 const services = [
  { number:"01", title:"UI/UX design", description:"Clear information architecture, thoughtful user flows and interfaces that feel easy to understand." },
@@ -39,7 +39,7 @@ const faqs = [
       <span class="hero-badge"><span class="status-dot"></span> INDEPENDENT DESIGN & DEVELOPMENT</span>
       <h1 id="hero-title">Digital experiences.<br /><span>Designed with intent.</span></h1>
       <p class="hero-description">I bring design thinking and front-end craft together to make the complex feel clear, and the ordinary feel considered.</p>
-      <div class="hero-actions"><a class="button button-primary" href="#work">Explore selected work <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="/about/">A little about me <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-actions"><a class="button button-primary" href="/work/">Explore selected work <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="/about/">A little about me <span aria-hidden="true">↗</span></a></div>
       <div class="hero-showcase" aria-hidden="true">
         <div class="showcase-topbar"><div class="showcase-dots"><i></i><i></i><i></i></div><span>INVINCIBLE / DIGITAL WORKSPACE</span><span class="showcase-topbar-right">ASTRO + DESIGN</span></div>
         <div class="showcase-main">
@@ -57,9 +57,9 @@ const faqs = [
     <div class="container">
       <div class="section-heading"><div><p class="section-kicker">01 / SELECTED WORK</p><h2 class="section-title" id="work-title">A few things, made<br />with intent<span class="blue-period">.</span></h2></div><div class="section-intro"><p>A selection of digital experiences, interfaces and brand-led web work. Each project starts with the same question: how can this be clearer, more useful and more memorable?</p><a class="text-link" href="/about/">More about my approach <span aria-hidden="true">↗</span></a></div></div>
       <div class="project-toolbar"><p>PROJECT INDEX <span>— 03 ITEMS</span></p><div class="project-filters" role="group" aria-label="Filter selected projects"><button type="button" data-project-filter="all" aria-pressed="true">All work</button><button type="button" data-project-filter="web" aria-pressed="false">Web & brand</button><button type="button" data-project-filter="product" aria-pressed="false">Product design</button></div></div>
-      <div class="project-grid" id="project-grid">{projects.map((project) => <ProjectCard {...project} />)}</div>
+      <div class="project-grid" id="project-grid">{projects.map((project) => <ProjectCard {...project} href={"/work/" + project.slug + "/"} />)}</div>
       <p class="project-empty" data-project-empty hidden>No projects match this filter yet.</p>
-      <div class="work-bottom"><p>Work snapshots are illustrative previews; project details can be expanded into full case studies as assets and outcomes are confirmed.</p><a class="text-link" href="#contact">Discuss a similar project <span aria-hidden="true">↗</span></a></div>
+      <div class="work-bottom"><p>Explore each case study for the context, design challenge and approach behind the work.</p><a class="text-link" href="#contact">Discuss a similar project <span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
 
