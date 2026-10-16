@@ -10,7 +10,7 @@ A personal portfolio built with [Astro](https://astro.build/).
 
 ## Getting started
 
-Requirements: Node.js 20.19.0+, 22.12.0+, or another version supported by the installed Astro release.
+Requirements: Node.js 22.12.0 or newer.
 
 ```bash
 npm install
@@ -25,6 +25,10 @@ Open the local URL printed by Astro (usually http://localhost:4321).
 - `npm run build` — create a production build in `dist/`
 - `npm run preview` — preview the production build locally
 - `npm run astro` — run the Astro CLI
+
+## Build
+
+Run `npm run build` to verify the production output. The generated static site is written to `dist/`.
 
 ## Project structure
 
