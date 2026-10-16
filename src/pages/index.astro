@@ -54,6 +54,7 @@ const services = ["Digital experiences", "Interface design", "Creative developme
         <div class="service-list">
           {services.map((service, index) => <div class="service-item"><span>0{index + 1}</span><span>{service}</span><span aria-hidden="true">↗</span></div>)}
         </div>
+        <a class="about-more" href="/about/">More about my approach <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
@@ -106,6 +107,9 @@ const services = ["Digital experiences", "Interface design", "Creative developme
   .service-item { display: grid; grid-template-columns: 48px 1fr 20px; align-items: center; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--color-line); font-size: 13px; }
   .service-item span:first-child { color: var(--color-muted); font: 10px var(--font-mono); }
   .service-item span:last-child { color: var(--color-accent); text-align: right; }
+  .about-more { display: inline-flex; align-items: center; gap: 22px; margin-top: 26px; padding-bottom: 9px; border-bottom: 1px solid var(--color-accent); font-size: 12px; }
+  .about-more span { color: var(--color-accent); font-size: 17px; transition: transform 180ms ease; }
+  .about-more:hover span { transform: translate(3px, -3px); }
   .contact-section { padding: clamp(80px, 12vw, 145px) 0; background: var(--color-accent); color: var(--color-bg); }
   .contact-section .eyebrow { color: rgb(16 17 15 / 65%); }
   .contact-section .eyebrow::before { background: var(--color-bg); }
