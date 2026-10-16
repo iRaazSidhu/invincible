@@ -10,7 +10,7 @@ A personal portfolio built with [Astro](https://astro.build/).
 
 ## Getting started
 
-Requirements: Node.js 22.12.0 or newer.
+Requirements: Node.js 22.22.0 or newer (the minimum version required by Astro 7.4).
 
 ```bash
 npm install
