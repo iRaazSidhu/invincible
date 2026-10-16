@@ -1,0 +1,88 @@
+---
+const navItems = [
+  { label: "Work", href: "#work" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" }
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="/" aria-label="Invincible home">
+      <span class="wordmark-mark">i.</span>
+      <span>INVINCIBLE<span class="wordmark-period">.</span></span>
+    </a>
+    <nav aria-label="Main navigation">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a class="availability" href="#contact"><span></span> Available for select projects</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .header-inner {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+  .wordmark-mark {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--color-bg);
+    background: var(--color-accent);
+    font-size: 19px;
+    letter-spacing: -0.08em;
+  }
+  .wordmark-period { color: var(--color-accent); }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 38px);
+  }
+  nav a, .availability {
+    color: var(--color-muted);
+    font-size: 12px;
+    transition: color 180ms ease;
+  }
+  nav a:hover, .availability:hover { color: var(--color-text); }
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+  }
+  .availability span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 12px rgb(215 255 100 / 45%);
+  }
+  @media (max-width: 720px) {
+    .header-inner { min-height: 72px; flex-wrap: wrap; gap: 16px; padding-block: 16px; }
+    .availability { display: none; }
+    nav { gap: 18px; }
+  }
+  @media (max-width: 420px) {
+    .wordmark { font-size: 10px; gap: 7px; }
+    .wordmark-mark { width: 28px; height: 28px; }
+    nav { gap: 12px; }
+    nav a { font-size: 11px; }
+  }
+</style>
